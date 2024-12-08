@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            background-color: #FFE6E0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        h4 {
+            position: fixed;
+            top: 25px;
+            right: 0;
+            margin-right: 30px;
+            text-align: center;
+            z-index: 100; 
+        }
+
+
+        h4 a {
+            color: black;
+            text-decoration: none;
+            display: inline-block;  
+            cursor: pointer; 
+            font-size: 32px;  
+            line-height: 1.5;  
+            z-index: 10;  
+            margin-left: 10px; 
+        }
+
+
+        .gift {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 32px; 
+            color: black;
+        }
+
+
+        h1 {
+            text-align: center;
+            font-family: 'Tangerine', cursive;
+            margin-top: 45px;
+        }
+
+
+        .container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            margin-top: -50px;
+            transform: translateX(-20px); 
+        }
+
+
+        .card {
+            display: inline-grid;
+            color: white;
+            transition: transform 0.3s;
+            transform: perspective(800px) rotateY(0deg);
+            transform-style: preserve-3d;
+            width: 300px;
+            height: 400px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            font-family: 'Dongle', sans-serif;
+            font-size: 24px;
+            line-height: 1.6;
+            padding: 20px;
+            border-radius: 10px;
+            backface-visibility: hidden;
+        }
+
+
+        .card-back {
+            background: linear-gradient(#1b4d3e, #0a2918);
+            transform: rotateY(180deg);
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+
+        button {
+            padding: 5px 20px;
+            border-radius: 4px;
+            border: none;
+            background-color: #ff4444;
+            color: white;
+            cursor: pointer;
+            margin-top: 15px;
+            font-family: 'Dongle', sans-serif;
+            font-size: 20px;
+            transform: translateX(20px);
+        }
+      .star{
+        width: 50px;
+        height: auto;
+        display: block;
+        margin: -400px auto 20px;
+        position: relative;
+        transform: rotate(-2deg);
+
+
+      }
+      .deco {
+          width: 100px;
+          height: auto;
+          display: block;
+          margin: 50px auto -210px;
+          position: relative;
+          transform: rotate(-15deg);
+        }  
+      
+      .deco2 {
+        position: relative;        
+        margin: 220px 90px 20px;
+        width: 150px;
+        height: auto;
+        transform: rotate(15deg);
+
+
+        }  .deco3 {
+        position: relative;
+        margin: -90px 55px -10px;
+        width: 220px;
+        height: auto;
+        transform: rotate(-15deg);
+      
+        }  
+      
+        .tree-image {
+            width: 260px;
+            height: auto;
+            display: block;
+            margin: 70px auto;
+            position: relative;
+        }
+
+
+        .light {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transition: all 0.5s;
+            box-shadow: 0 0 10px currentColor;
+            opacity: 0.7;
+        }
+
+
+        .light:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            filter: blur(2px);
+        }
+
+
+        .edit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+
+        .text-input {
+            width: 80%;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            color: white;
+            padding: 10px;
+            font-family: 'Dongle', sans-serif;
+            font-size: 20px;
+            resize: none;
+            margin-top: 20px;
+        }
+
+
+        .text-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+
+        .display-text {
+            white-space: pre-wrap;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Dongle', sans-serif;
+            font-size: 24px;
+            width: 80%;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+
+        .save-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: 'Dongle', sans-serif;
+            font-size: 18px;
+        }
+
+
+        .save-button:hover, .edit-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+
+        /* 이미지 사이드바 스타일 */
+        .image-sidebar {
+            position: absolute;
+            left: calc(50% + 200px);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            z-index: 1000;
+        }
+
+
+        .draggable-img {
+            width: 28px;
+            height: 28px;
+            cursor: grab;
+            transition: transform 0.2s;
+            user-select: none;
+        }
+
+
+        .draggable-img:hover {
+            transform: scale(1.1);
+        }
+
+
+        .dragged-img {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            cursor: grab;
+            user-select: none;
+            z-index: 10;
+        }
+
+
+        .dragged-img:active {
+            cursor: grabbing;
+        }
+
+
+        .card-front {
+            overflow: visible !important;
+        }
+        .controls {
+            margin: 20px;
+        }
+        .button-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-container button {
+    padding: 5px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #ff4444;
+    color: white;
+    cursor: pointer;
+    font-family: 'Dongle', sans-serif;
+    font-size: 20px;
+}
+
+.button-container button:hover {
+    background-color: #ff6666;
+}
+    </style>
+</head>
+<body>
+    <h1>Christmas card</h1>
+    
+    <div class="image-sidebar">
+        <img src="https://i.imgur.com/tueKwkL.png" class="draggable-img" alt="금색장식">
+        <img src="https://i.imgur.com/e0RkmsM.png" class="draggable-img" alt="선물">
+        <img src="https://i.imgur.com/e2L2Z8R.png" class="draggable-img"alt="인형">
+        <img src="https://i.imgur.com/t8V9iVu.png" class="draggable-img" alt="별">
+        <img src="https://i.imgur.com/QIMTCuQ.png" class="draggable-img" alt="빨간색장식">
+       <img src="https://i.imgur.com/uCQo7Oo.png" class="draggable-img" alt="눈사람">
+    </div>
+
+
+    <h4>
+        <a href="" target="_blank" class="gift">🎁</a>
+    </h4>
+
+
+    <div class="container">
+        <div class="card" id="myCard">
+            <div class="card-front">
+                <div id="body">
+                    <div id="treeContainer" style="position: relative;">
+                     <img src="https://i.imgur.com/PXAUCkL.png" class="tree-image" alt="Christmas Tree">
+                      <img src="https://i.imgur.com/Soz3ZvI.png" class="star" alt="star">  
+                      <img src="https://i.imgur.com/JQokYca.png" class="deco" alt="deco">
+                      <img src="https://i.imgur.com/xfCagUu.png" class="deco2" alt="deco2">
+                      <img src="https://i.imgur.com/7NIW7j7.png" class="deco3" alt="deco3">
+                    </div>
+                </div>
+                <div id="footer">
+                </div>
+            </div>
+            <div class="card-back">
+                <button class="edit-button" onclick="toggleEdit()">✎ Edit</button>
+                <div id="displayText" class="display-text"></div>
+                <textarea id="textInput" class="text-input" style="display: none;" 
+                    placeholder="메시지를 입력하세요... (Enter your message...)"></textarea>
+                <button class="save-button" onclick="saveText()" style="display: none;">Save</button>
+            </div>
+        </div>
+        <button onclick="rotateCard()">뒷면</button>
+        <button onclick="downloadCard()">저장하기</button>
+    </div>
+
+  
+              
+                
+           </div>
+
+
+    <script>
+      
+function rotateCard() {
+    var card = document.getElementById('myCard');
+    if (card.style.transform === 'perspective(800px) rotateY(180deg)') {
+        card.style.transform = 'perspective(800px) rotateY(0deg)';
+    } else {
+        card.style.transform = 'perspective(800px) rotateY(180deg)';
+    }
+}
+
+
+const treeContainer = document.getElementById('treeContainer');
+const lightPositions = [
+    { top: '24%', left: '47%' },
+    { top: '30%', left: '40%' },
+    { top: '40%', left: '43%' },
+    { top: '50%', left: '50%' },
+    { top: '60%', left: '55%' },
+    { top: '60%', left: '35%' },
+    { top: '70%', left: '45%' },
+    { top: '45%', left: '60%' },
+    { top: '55%', left: '40%' },
+    { top: '35%', left: '55%' }
+];
+
+
+const colors = [
+    'rgba(255, 255, 0, 0.8)',   // 노란색
+    'rgba(255, 0, 0, 0.8)',     // 빨간색
+    'rgba(135, 206, 235, 0.8)', // 하늘색
+    'rgba(255, 255, 0, 0.8)',   // 노란색
+];
+
+
+let currentColorIndex = 0;
+
+
+// 조명 생성
+lightPositions.forEach((position, index) => {
+    const light = document.createElement('div');
+    light.className = 'light';
+    light.style.top = position.top;
+    light.style.left = position.left;
+    light.style.backgroundColor = colors[index % colors.length];
+    treeContainer.appendChild(light);
+});
+
+
+// 더블클릭으로 색상 변경
+treeContainer.addEventListener('dblclick', () => {
+    const lights = document.querySelectorAll('.light');
+    currentColorIndex = (currentColorIndex + 1) % colors.length;
+    
+    lights.forEach((light, index) => {
+        const colorIndex = (index + currentColorIndex) % colors.length;
+        light.style.backgroundColor = colors[colorIndex];
+    });
+});
+
+
+// 조명 깜빡임 효과
+setInterval(() => {
+    const lights = document.querySelectorAll('.light');
+    lights.forEach(light => {
+        light.style.opacity = (Math.random() * 0.4 + 0.6).toString();
+    });
+}, 1000);
+
+
+// 메시지 편집 관련
+let isEditing = false;
+
+
+function toggleEdit() {
+    isEditing = !isEditing;
+    const textInput = document.getElementById('textInput');
+    const displayText = document.getElementById('displayText');
+    const saveButton = document.querySelector('.save-button');
+    
+    if (isEditing) {
+        textInput.style.display = 'block';
+        displayText.style.display = 'none';
+        saveButton.style.display = 'block';
+        textInput.value = displayText.textContent;
+        textInput.focus();
+    } else {
+        textInput.style.display = 'none';
+        displayText.style.display = 'block';
+        saveButton.style.display = 'none';
+    }
+}
+
+
+function saveText() {
+    const textInput = document.getElementById('textInput');
+    const displayText = document.getElementById('displayText');
+    displayText.textContent = textInput.value;
+    localStorage.setItem('cardMessage', textInput.value);
+    toggleEdit();
+}
+
+
+// 페이지 로드 시 저장된 메시지 불러오기
+window.onload = function() {
+    const savedMessage = localStorage.getItem('cardMessage');
+    if (savedMessage) {
+        document.getElementById('displayText').textContent = savedMessage;
+    }
+}
+
+
+// 엔터키로 저장
+document.getElementById('textInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        saveText();
+    }
+});
+
+
+// 이미지 드래그 앤 드롭
+const cardFront = document.querySelector('.card-front');
+let isDragging = false;
+let currentDecoration = null;
+let offsetX, offsetY;
+
+
+// 이미지에 드래그 기능 추가
+document.querySelectorAll('.draggable-img').forEach(img => {
+    img.addEventListener('mousedown', startDragging);
+});
+
+
+function startDragging(e) {
+    const newDecoration = document.createElement('img');
+    newDecoration.src = e.target.src;
+    newDecoration.className = 'dragged-img';
+    
+    const rect = cardFront.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    newDecoration.style.left = `${mouseX - 30}px`;
+    newDecoration.style.top = `${mouseY - 30}px`;
+    
+    cardFront.appendChild(newDecoration);
+    currentDecoration = newDecoration;
+    isDragging = true;
+    
+    document.addEventListener('mousemove', moveDecoration);
+    document.addEventListener('mouseup', stopDragging);
+}
+
+
+function moveDecoration(e) {
+    if (!isDragging || !currentDecoration) return;
+    
+    const rect = cardFront.getBoundingClientRect();
+    const x = e.clientX - rect.left - 30;
+    const y = e.clientY - rect.top - 30;
+    
+    currentDecoration.style.left = `${x}px`;
+    currentDecoration.style.top = `${y}px`;
+}
+
+
+function stopDragging() {
+    isDragging = false;
+    currentDecoration = null;
+    document.removeEventListener('mousemove', moveDecoration);
+    document.removeEventListener('mouseup', stopDragging);
+}
+// 이미지 드래그 이벤트
+cardFront.addEventListener('mousedown', e => {
+    if (e.target.classList.contains('dragged-img')) {
+        // 오른쪽 클릭(클릭 버튼 2)이면 이미지 삭제
+        if (e.button === 2) {
+            e.target.remove();
+            return;
+        }
+        
+        // 왼쪽 클릭은 드래그 기능
+        if (e.button === 0) {
+            currentDecoration = e.target;
+            isDragging = true;
+            
+            const rect = currentDecoration.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+            
+            const moveHandler = e => {
+                if (isDragging && currentDecoration) {
+                    const rect = cardFront.getBoundingClientRect();
+                    const x = e.clientX - rect.left - offsetX;
+                    const y = e.clientY - rect.top - offsetY;
+                    
+                    currentDecoration.style.left = `${x}px`;
+                    currentDecoration.style.top = `${y}px`;
+                }
+            };
+            
+            const upHandler = () => {
+                isDragging = false;
+                currentDecoration = null;
+                document.removeEventListener('mousemove', moveHandler);
+                document.removeEventListener('mouseup', upHandler);
+            };
+            
+            document.addEventListener('mousemove', moveHandler);
+            document.addEventListener('mouseup', upHandler);
+        }
+    }
+});
+
+
+// 오른쪽 클릭 컨텍스트 메뉴 방지
+cardFront.addEventListener('contextmenu', e => {
+    if (e.target.classList.contains('dragged-img')) {
+        e.preventDefault();
+    }
+});
+
+        function downloadCard() {
+    html2canvas(document.body).then(function(canvas) {
+        const link = document.createElement('a');
+        link.download = 'christmas-card.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
+</script>
